@@ -13,17 +13,20 @@ public class CategoriesClient {
 
     private static CategoriesApiClientInterface services;
 
-    public static CategoriesApiClientInterface getServices;
+    public static CategoriesApiClientInterface getServices(){
 
-    if( services == null ){
-        OkHttpClient client = new OkHttpClient.Builder().build();
+        if( services == null ){
+            OkHttpClient client = new OkHttpClient.Builder().build();
 
-        Retrofit r = new Retrofit.Builder().baseUrl("https://api.wattpad.com/v4").
-                addConverterFactory(GsonConverterFactory.create(
-                        new GsonBuilder().create())).client(client)
-                .build();
+            Retrofit r = new Retrofit.Builder().baseUrl("https://api.wattpad.com/v4/").
+                    addConverterFactory(GsonConverterFactory.create(
+                            new GsonBuilder().create())).client(client)
+                    .build();
 
-        services = r.create(CategoriesApiClientInterface.class);
+            services = r.create(CategoriesApiClientInterface.class);
+        }
+
+        return services;
 
     }
 

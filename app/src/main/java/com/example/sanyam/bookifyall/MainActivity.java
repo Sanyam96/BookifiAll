@@ -7,6 +7,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     ListView lv;
@@ -18,7 +22,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO -> all basic ui like wattpad app
+        // TODO basic UI
+
+        mData = new ArrayList<>();
+
+        CategoriesApiClientInterface apiService = CategoriesClient.getServices();
+        Call<CategoriesResponse> call = apiService.getCategories();
+
+        call.enqueue(new Callback<CategoriesResponse>() {
+            @Override
+            public void onResponse(Call<CategoriesResponse> call, Response<CategoriesResponse> response) {
+                if(response.isSuccessful()){
+                    ArrayList<perCategoriesData> categoriesData = response.body().getmPerCategoriesData();
+
+                    if( categoriesData == null){
+                        return;
+                    }
+                    mData.clear();
+                    for (perCategoriesData p : categoriesData){
+                        mData.add(p);
+                    }
+                    //adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoriesResponse> call, Throwable t) {
+
+            }
+        });
 
     }
 }

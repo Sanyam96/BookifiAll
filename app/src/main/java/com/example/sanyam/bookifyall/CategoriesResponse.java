@@ -1,25 +1,19 @@
 package com.example.sanyam.bookifyall;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**
  * Created by sanyam on 29/7/16.
  */
 public class CategoriesResponse {
-    String categories;
+    //String categories;
+    @SerializedName("categories")
     ArrayList<perCategoriesData> mPerCategoriesData;
 
-    public CategoriesResponse(String categories, ArrayList<perCategoriesData> mPerCategoriesData) {
-        this.categories = categories;
+    public CategoriesResponse(ArrayList<perCategoriesData> mPerCategoriesData) {
         this.mPerCategoriesData = mPerCategoriesData;
-    }
-
-    public String getCategories() {
-        return categories;
-    }
-
-    public void setCategories(String categories) {
-        this.categories = categories;
     }
 
     public ArrayList<perCategoriesData> getmPerCategoriesData() {
